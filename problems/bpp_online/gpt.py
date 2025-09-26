@@ -13,7 +13,4 @@ def priority_v2(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
     Return:
         Array of same size as bins_remain_cap with priority score of each bin.
     """
-    ratios = item / bins_remain_cap
-    log_ratios = np.log(ratios)
-    priorities = -log_ratios
-    return priorities
+    return np.zeros_like(bins_remain_cap)

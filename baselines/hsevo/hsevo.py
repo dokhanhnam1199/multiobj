@@ -286,8 +286,20 @@ class HSEvo:
 
                 if traceback_msg == '':  # If execution has no error
                     try:
-                        individual["obj"] = float(stdout_str.split('\n')[-2]) if self.obj_type == "min" else -float(
-                            stdout_str.split('\n')[-2])
+                        # Split the output into lines
+                        lines = stdout_str.strip().split('\n')
+
+                        individual["obj"] = float(lines[-3]) if self.obj_type == "min" else -float(lines[-3])
+
+                        # Extract runtime from the second-to-last line
+                        runtime_line = lines[-2]
+
+                        parts = runtime_line.split()
+
+                        user_time = float(parts[0].replace("user", ""))
+                        system_time = float(parts[1].replace("system", ""))
+
+                        individual["runtime"] = user_time + system_time
                         individual["exec_success"] = True
                     except:
                         population[response_id] = self.mark_invalid_individual(population[response_id],
@@ -314,7 +326,7 @@ class HSEvo:
         # Execute the python file with flags
         with open(individual["stdout_filepath"], 'w') as f:
             eval_file_path = f'{self.root_dir}/problems/{self.problem}/eval.py' if self.problem_type != "black_box" else f'{self.root_dir}/problems/{self.problem}/eval_black_box.py'
-            process = subprocess.Popen(['python', '-u', eval_file_path, f'{self.problem_size}', self.root_dir, "train"],
+            process = subprocess.Popen(['time','python3', '-u', eval_file_path, f'{self.problem_size}', self.root_dir, "train"],
                                        stdout=f, stderr=f)
 
         block_until_running(individual["stdout_filepath"], log_status=True, iter_num=self.iteration,
@@ -339,6 +351,11 @@ class HSEvo:
         if self.elitist is None or best_obj < self.elitist["obj"]:
             self.elitist = population[best_sample_idx]
             logging.info(f"Iteration {self.iteration}: Elitist: {self.elitist['obj']}")
+
+        # Dump population as JSON
+        pop_json_path = f"population_iter{self.iteration}.json"
+        with open(pop_json_path, "w") as f:
+            json.dump(self.population, f, indent=2)
 
         self.iteration += 1
 

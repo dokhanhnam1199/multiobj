@@ -2,3 +2,7 @@ __pycache__/
 .idea/
 outputs/
 venv/
+.vscode/
+.env
+test.py
+test.sh

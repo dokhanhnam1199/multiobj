@@ -1,0 +1,2 @@
+Your task is to write a {func_name} function using the {strategy} strategy for {problem_desc}
+{func_desc}

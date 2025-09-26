@@ -3,7 +3,10 @@ import logging
 import os
 from pathlib import Path
 import subprocess
-
+from dotenv import load_dotenv
+load_dotenv()
+NVIDIA_NIM_API_KEY = os.getenv("NVIDIA_NIM_API_KEY")
+NVIDIA_NIM_API_BASE = os.getenv("NVIDIA_NIM_API_BASE")
 
 ROOT_DIR = os.getcwd()
 logging.basicConfig(level=logging.INFO)
@@ -18,15 +21,17 @@ def main(cfg):
     logging.info(f"Using Algorithm: {cfg.algorithm}")
 
     if cfg.algorithm == "hsevo":
-        from baselines.hsevo.hsevo import HSEvo as LHH
+        from baselines.hsevo import HSEvo as LHH
     elif cfg.algorithm == "reevo":
-        from baselines.hsevo import ReEvo as LHH
+        from baselines.reevo import ReEvo as LHH
     elif cfg.algorithm == "reevo-hs":
-        from variants.reevo import ReEvoHS as LHH
+        from baselines.hsevo.variants.reevo import ReEvoHS as LHH
     elif cfg.algorithm == "reevo-rf":
-        from variants.reevo import ReEvoRF as LHH
+        from baselines.hsevo.variants.reevo import ReEvoRF as LHH
     elif cfg.algorithm == "eoh":
         from baselines.eoh import EoH as LHH
+    elif cfg.algorithm == "map-elites":
+        from map_elites.map_elites import Map_Elites as LHH
     else:
         raise NotImplementedError
 
@@ -43,7 +48,7 @@ def main(cfg):
     test_script_stdout = "best_code_overall_val_stdout.txt"
     logging.info(f"Running validation script...: {test_script}")
     with open(test_script_stdout, 'w') as stdout:
-        subprocess.run(["python", test_script, "-1", ROOT_DIR, "val"], stdout=stdout)
+        subprocess.run(['python3', test_script, "-1", ROOT_DIR, "val"], stdout=stdout)
     logging.info(f"Validation script finished. Results are saved in {test_script_stdout}.")
     
     # Print the results

@@ -140,7 +140,7 @@ class Problem:
 
                     with open(stdout_filepath, 'w') as f:
                         process = subprocess.Popen(
-                            ['python', '-u', file_path, f'{self.problem_size}', self.root_dir, "train"], stdout=f,
+                            ['time','python3', '-u', file_path, f'{self.problem_size}', self.root_dir, "train"], stdout=f,
                             stderr=f)
 
                     block_until_running(stdout_filepath, log_status=True)
@@ -210,10 +210,20 @@ class Problem:
 
                 if not traceback_msg:  # If execution has no error
                     try:
-                        individual["obj"] = float(stdout_str.split('\n')[-2])
-                        assert individual["obj"] > 0, "Objective value <= 0 is not supported."
-                        if self.obj_type == "max":
-                            individual["obj"] = -individual["obj"]
+                        # Split the output into lines
+                        lines = stdout_str.strip().split('\n')
+
+                        individual["obj"] = float(lines[-3]) if self.obj_type == "min" else -float(lines[-3])
+
+                        # Extract runtime from the second-to-last line
+                        runtime_line = lines[-2]
+
+                        parts = runtime_line.split()
+
+                        user_time = float(parts[0].replace("user", ""))
+                        system_time = float(parts[1].replace("system", ""))
+
+                        individual["runtime"] = user_time + system_time
                         individual["exec_success"] = True
                     except Exception as e:
                         population[response_id] = self.mark_invalid_individual(individual,

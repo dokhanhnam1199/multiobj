@@ -1,1 +1,1 @@
-from .hsevo import hsevo
+from .hsevo import HSEvo
