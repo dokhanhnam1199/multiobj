@@ -37,7 +37,7 @@ class HSEvo:
         logging.info("Problem description: " + self.problem_desc)
         logging.info("Function name: " + self.func_name)
 
-        self.prompt_dir = f"{self.root_dir}/prompts"
+        self.prompt_dir = f"{self.root_dir}/baselines/hsevo/prompts"
         self.output_file = f"{self.root_dir}/problems/{self.problem}/gpt.py"
 
         # Loading all text prompts
@@ -197,12 +197,13 @@ class HSEvo:
         Mark an individual as invalid.
         """
         individual["exec_success"] = False
-        individual["obj"] = float("inf")
+        individual["gap"] = float("inf")
+        individual["runtime"] = float("inf")
         individual["traceback_msg"] = traceback_msg
         return individual
 
     def save_log_population(self, population: list[dict], logHS=False):
-        objs = [individual["obj"] for individual in population]
+        objs = [individual["gap"] for individual in population]
 
         if logHS is False:
             file_name = f"objs_log_iter{self.iteration}.txt"
@@ -262,7 +263,7 @@ class HSEvo:
                 result, run_ok = inner_run
                 if run_ok:
                     try:
-                        individual["obj"] = float(result) if self.obj_type == "min" else -float(result)
+                        individual["gap"] = float(result) if self.obj_type == "min" else -float(result)
                         individual["exec_success"] = True
                     except:
                         population[response_id] = self.mark_invalid_individual(population[response_id],
@@ -289,7 +290,7 @@ class HSEvo:
                         # Split the output into lines
                         lines = stdout_str.strip().split('\n')
 
-                        individual["obj"] = float(lines[-3]) if self.obj_type == "min" else -float(lines[-3])
+                        individual["gap"] = float(lines[-3]) if self.obj_type == "min" else -float(lines[-3])
 
                         # Extract runtime from the second-to-last line
                         runtime_line = lines[-2]
@@ -308,7 +309,7 @@ class HSEvo:
                     population[response_id] = self.mark_invalid_individual(population[response_id], traceback_msg)
 
         # Log after all population is evaluated
-        valid_objs = [ind["obj"] for ind in population if ind["exec_success"]]
+        valid_objs = [ind["gap"] for ind in population if ind["exec_success"]]
         best_obj = min(valid_objs) if valid_objs else float("inf")
         logging.info(f"Eval={self.function_evals}, TokenIn={self.prompt_tokens}, TokenOut={self.completion_tokens}, MaxObj={best_obj}")
 
@@ -338,7 +339,7 @@ class HSEvo:
         Update after each iteration
         """
         population = self.population
-        objs = [individual["obj"] for individual in population]
+        objs = [individual["gap"] for individual in population]
         best_obj, best_sample_idx = min(objs), np.argmin(np.array(objs))
 
         # update best overall
@@ -348,9 +349,9 @@ class HSEvo:
             self.best_code_path_overall = population[best_sample_idx]["code_path"]
 
         # update elitist
-        if self.elitist is None or best_obj < self.elitist["obj"]:
+        if self.elitist is None or best_obj < self.elitist["gap"]:
             self.elitist = population[best_sample_idx]
-            logging.info(f"Iteration {self.iteration}: Elitist: {self.elitist['obj']}")
+            logging.info(f"Iteration {self.iteration}: Elitist: {self.elitist['gap']}")
 
         # Dump population as JSON
         pop_json_path = f"population_iter{self.iteration}.json"
@@ -367,7 +368,7 @@ class HSEvo:
         # Eliminate invalid individuals
         if self.problem_type == "black_box":
             population = [individual for individual in population if
-                          individual["exec_success"] and individual["obj"] < self.seed_ind["obj"]]
+                          individual["exec_success"] and individual["gap"] < self.seed_ind["gap"]]
         else:
             population = [individual for individual in population if individual["exec_success"]]
         if len(population) < 2:
@@ -378,7 +379,7 @@ class HSEvo:
             parents = np.random.choice(population, size=2, replace=False)
             # If two parents have the same objective value, consider them as identical;
             # otherwise, add them to the selected population
-            if parents[0]["obj"] != parents[1]["obj"]:
+            if parents[0]["gap"] != parents[1]["gap"]:
                 selected_population.extend(parents)
             if trial > 1000:
                 return None
@@ -388,12 +389,12 @@ class HSEvo:
         lst_str_method = []
         seen_elements = set()
 
-        sorted_population = sorted(population, key=lambda x: x['obj'], reverse=False)
+        sorted_population = sorted(population, key=lambda x: x["gap"], reverse=False)
         for idx, individual in enumerate(sorted_population):
             suffix = "th" if 11 <= idx + 1 <= 13 else {1: "st", 2: "nd", 3: "rd"}.get((idx + 1) % 10, "th")
             str_idx_method = f"[Heuristics {idx + 1}{suffix}]"
             # str_idx_method = f"[Heuristics {individual['code_path']}]"
-            # str_obj = f"* Objective score: {individual['obj']}"
+            # str_obj = f"* Objective score: {individual["gap"]}"
             str_code = individual['code']
             temp_str = str_idx_method + "\n" + str_code + "\n"
 
@@ -478,7 +479,7 @@ class HSEvo:
         num_choice = 0
         for i in range(0, len(population), 2):
             # Select two individuals
-            if population[i]["obj"] < population[i + 1]["obj"]:
+            if population[i]["gap"] < population[i + 1]["gap"]:
                 parent_1 = population[i]
                 parent_2 = population[i + 1]
             else:
@@ -608,7 +609,7 @@ class HSEvo:
         return self.evaluate_population(population_hs, try_hs_idx)
 
     def find_best_obj(self, population_hs):
-        objs = [individual["obj"] for individual in population_hs]
+        objs = [individual["gap"] for individual in population_hs]
         best_solution_id = np.argmin(np.array(objs))
         return best_solution_id
 
@@ -626,12 +627,12 @@ class HSEvo:
 
     def update_harmony_memory(self, population_hs, harmony_memory, new_harmony, func_block, parameter_ranges,
                               try_hs_idx):
-        objs = [individual["obj"] for individual in population_hs]
+        objs = [individual["gap"] for individual in population_hs]
         worst_index = np.argmax(np.array(objs))
 
         new_individual = self.create_population_hs(func_block, parameter_ranges, [new_harmony.tolist()], try_hs_idx)[0]
 
-        if new_individual['obj'] < population_hs[worst_index]['obj']:
+        if new_individual["gap"] < population_hs[worst_index]["gap"]:
             population_hs[worst_index] = new_individual
             harmony_memory[worst_index] = new_harmony
         return population_hs, harmony_memory

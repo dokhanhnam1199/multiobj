@@ -43,7 +43,7 @@ class Map_Elites:
         logging.info("Function name: " + self.func_name)
         logging.info("Stop condition: " + self.cfg.stop_condition)
 
-        self.prompt_dir = f"{self.root_dir}/prompts"
+        self.prompt_dir = f"{self.root_dir}/map_elites/prompts"
         self.output_file = f"{self.root_dir}/problems/{self.problem}/gpt.py"
 
         # Loading all text prompts

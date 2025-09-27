@@ -1,0 +1,8 @@
+Here is a Python heuristic algorithm. Optimize it for speed without changing its logic, outputs and function signature.
+
+[Code]
+{func_signature1}
+{code}
+
+[Improved code]
+Please write the optimized function `{func_name}_v2`, according to the instruction. Output code only without any comment in the code and enclose your code with Python code block: ```python ... ```.

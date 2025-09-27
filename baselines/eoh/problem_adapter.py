@@ -12,7 +12,7 @@ class Prompts:
         self.problem = problem_cfg.problem_name
         self.root_dir = root_dir
         self.problem_type = problem_cfg.problem_type
-        self.prompt_dir = f"{self.root_dir}/prompts"
+        self.prompt_dir = f"{self.root_dir}/baselines/eoh/prompts"
 
         prompt_path_suffix = "_black_box" if self.problem_type == "black_box" else ""
         problem_prompt_path = f'{self.prompt_dir}/{self.problem}{prompt_path_suffix}'
@@ -105,7 +105,7 @@ class Problem:
         Mark an individual as invalid.
         """
         individual["exec_success"] = False
-        individual["obj"] = float("inf")
+        individual["gap"] = float("inf")
         individual["traceback_msg"] = traceback_msg
         return individual
 
@@ -163,10 +163,10 @@ class Problem:
 
                     if not traceback_msg:
                         try:
-                            individual["obj"] = float(stdout_str.split('\n')[-2])
-                            assert individual["obj"] > 0, "Objective value <= 0 is not supported."
+                            individual["gap"] = float(stdout_str.split('\n')[-2])
+                            assert individual["gap"] > 0, "Objective value <= 0 is not supported."
                             if self.obj_type == "max":
-                                individual["obj"] = -individual["obj"]
+                                individual["gap"] = -individual["gap"]
                             individual["exec_success"] = True
                         except Exception as e:
                             population[response_id] = self.mark_invalid_individual(individual,
@@ -177,7 +177,7 @@ class Problem:
                         logging.error(f"Traceback for response_id {response_id}: {traceback_msg}")
 
                     logging.info(
-                        f"Iteration {self.iteration}, response_id {response_id}: Objective value: {individual.get('obj')}")
+                        f"Iteration {self.iteration}, response_id {response_id}: Objective value: {individual.get('gap')}")
                     inner_runs.append(None)  # No process to manage for Sandbox
 
             except Exception as e:
@@ -213,7 +213,7 @@ class Problem:
                         # Split the output into lines
                         lines = stdout_str.strip().split('\n')
 
-                        individual["obj"] = float(lines[-3]) if self.obj_type == "min" else -float(lines[-3])
+                        individual["gap"] = float(lines[-3]) if self.obj_type == "min" else -float(lines[-3])
 
                         # Extract runtime from the second-to-last line
                         runtime_line = lines[-2]
@@ -234,10 +234,10 @@ class Problem:
                     logging.error(f"Traceback for response_id {response_id}: {traceback_msg}")
 
                 logging.info(
-                    f"Iteration {self.iteration}, response_id {response_id}: Objective value: {individual.get('obj')}")
+                    f"Iteration {self.iteration}, response_id {response_id}: Objective value: {individual.get('gap')}")
 
             except Exception as e:
                 logging.error(f"Failed to read stdout for response_id {response_id}: {e}")
                 population[response_id] = self.mark_invalid_individual(individual, "Failed to read stdout")
 
-        return [indiv.get("obj") for indiv in population]
+        return [indiv.get("gap") for indiv in population]

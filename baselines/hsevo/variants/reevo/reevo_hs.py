@@ -171,12 +171,12 @@ class ReEvoHS:
         Mark an individual as invalid.
         """
         individual["exec_success"] = False
-        individual["obj"] = float("inf")
+        individual["gap"] = float("inf")
         individual["traceback_msg"] = traceback_msg
         return individual
 
     def save_log_population(self, population: list[dict], logHS=False):
-        objs = [individual["obj"] for individual in population]
+        objs = [individual["gap"] for individual in population]
 
         if logHS is False:
             file_name = f"objs_log_iter{self.iteration}.txt"
@@ -233,7 +233,7 @@ class ReEvoHS:
             # Store objective value for each individual
             if traceback_msg == '':  # If execution has no error
                 try:
-                    individual["obj"] = float(stdout_str.split('\n')[-2]) if self.obj_type == "min" else -float(
+                    individual["gap"] = float(stdout_str.split('\n')[-2]) if self.obj_type == "min" else -float(
                         stdout_str.split('\n')[-2])
                     individual["exec_success"] = True
                 except:
@@ -243,7 +243,7 @@ class ReEvoHS:
                 population[response_id] = self.mark_invalid_individual(population[response_id], traceback_msg)
 
         # Log after all population is evaluated
-        valid_objs = [ind["obj"] for ind in population if ind["exec_success"]]
+        valid_objs = [ind["gap"] for ind in population if ind["exec_success"]]
         best_obj = min(valid_objs) if valid_objs else float("inf")
         logging.info(f"Eval={self.function_evals}, TokenIn={self.prompt_tokens}, TokenOut={self.completion_tokens}, MaxObj={best_obj}")
 
@@ -273,7 +273,7 @@ class ReEvoHS:
         Update after each iteration
         """
         population = self.population
-        objs = [individual["obj"] for individual in population]
+        objs = [individual["gap"] for individual in population]
         best_obj, best_sample_idx = min(objs), np.argmin(np.array(objs))
 
         # update best overall
@@ -283,9 +283,9 @@ class ReEvoHS:
             self.best_code_path_overall = population[best_sample_idx]["code_path"]
 
         # update elitist
-        if self.elitist is None or best_obj < self.elitist["obj"]:
+        if self.elitist is None or best_obj < self.elitist["gap"]:
             self.elitist = population[best_sample_idx]
-            logging.info(f"Iteration {self.iteration}: Elitist: {self.elitist['obj']}")
+            logging.info(f"Iteration {self.iteration}: Elitist: {self.elitist["gap"]}")
 
         self.iteration += 1
 
@@ -297,7 +297,7 @@ class ReEvoHS:
         # Eliminate invalid individuals
         if self.problem_type == "black_box":
             population = [individual for individual in population if
-                          individual["exec_success"] and individual["obj"] < self.seed_ind["obj"]]
+                          individual["exec_success"] and individual["gap"] < self.seed_ind["gap"]]
         else:
             population = [individual for individual in population if individual["exec_success"]]
         if len(population) < 2:
@@ -307,7 +307,7 @@ class ReEvoHS:
             trial += 1
             parents = np.random.choice(population, size=2, replace=False)
             # If two parents have the same objective value, consider them as identical; otherwise, add them to the selected population
-            if parents[0]["obj"] != parents[1]["obj"]:
+            if parents[0]["gap"] != parents[1]["gap"]:
                 selected_population.extend(parents)
             if trial > 1000:
                 return None
@@ -317,13 +317,13 @@ class ReEvoHS:
         """
         Short-term reflection before crossovering two individuals.
         """
-        if ind1["obj"] == ind2["obj"]:
+        if ind1["gap"] == ind2["gap"]:
             print(ind1["code"], ind2["code"])
             raise ValueError("Two individuals to crossover have the same objective value!")
         # Determine which individual is better or worse
-        if ind1["obj"] < ind2["obj"]:
+        if ind1["gap"] < ind2["gap"]:
             better_ind, worse_ind = ind1, ind2
-        elif ind1["obj"] > ind2["obj"]:
+        elif ind1["gap"] > ind2["gap"]:
             better_ind, worse_ind = ind2, ind1
 
         worse_code = filter_code(worse_ind["code"])
@@ -513,7 +513,7 @@ class ReEvoHS:
         return self.evaluate_population(population_hs, try_hs_idx)
 
     def find_best_obj(self, population_hs):
-        objs = [individual["obj"] for individual in population_hs]
+        objs = [individual["gap"] for individual in population_hs]
         best_solution_id = np.argmin(np.array(objs))
         return best_solution_id
 
@@ -531,12 +531,12 @@ class ReEvoHS:
 
     def update_harmony_memory(self, population_hs, harmony_memory, new_harmony, func_block, parameter_ranges,
                               try_hs_idx):
-        objs = [individual["obj"] for individual in population_hs]
+        objs = [individual["gap"] for individual in population_hs]
         worst_index = np.argmax(np.array(objs))
 
         new_individual = self.create_population_hs(func_block, parameter_ranges, [new_harmony.tolist()], try_hs_idx)[0]
 
-        if new_individual['obj'] < population_hs[worst_index]['obj']:
+        if new_individual["gap"] < population_hs[worst_index]["gap"]:
             population_hs[worst_index] = new_individual
             harmony_memory[worst_index] = new_harmony
         return population_hs, harmony_memory

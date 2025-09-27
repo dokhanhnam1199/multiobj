@@ -168,7 +168,7 @@ class ReEvo:
         Mark an individual as invalid.
         """
         individual["exec_success"] = False
-        individual["obj"] = float("inf")
+        individual["gap"] = float("inf")
         individual["traceback_msg"] = traceback_msg
         return individual
 
@@ -207,13 +207,13 @@ class ReEvo:
 
                 individual = population[response_id]
                 if run_ok:
-                    individual["obj"] = result
+                    individual["gap"] = result
                     individual["exec_success"] = run_ok
                 else:
                     population[response_id] = self.mark_invalid_individual(population[response_id], 'RZ: no message.')
 
                 logging.info(
-                    f"Iteration {self.iteration}, response_id {response_id}: Objective value: {individual['obj']}")
+                    f"Iteration {self.iteration}, response_id {response_id}: Objective value: {individual['gap']}")
             return population
         else:
             inner_runs = []
@@ -261,7 +261,7 @@ class ReEvo:
                         # Split the output into lines
                         lines = stdout_str.strip().split('\n')
 
-                        individual["obj"] = float(lines[-3]) if self.obj_type == "min" else -float(lines[-3])
+                        individual["gap"] = float(lines[-3]) if self.obj_type == "min" else -float(lines[-3])
 
                         # Extract runtime from the second-to-last line
                         runtime_line = lines[-2]
@@ -280,7 +280,7 @@ class ReEvo:
                     population[response_id] = self.mark_invalid_individual(population[response_id], traceback_msg)
 
         # Log after all population is evaluated
-        valid_objs = [ind["obj"] for ind in population if ind["exec_success"]]
+        valid_objs = [ind["gap"] for ind in population if ind["exec_success"]]
         best_obj = min(valid_objs) if valid_objs else float("inf")
         logging.info(f"Eval={self.function_evals}, TokenIn={self.prompt_tokens}, TokenOut={self.completion_tokens}, MaxObj={best_obj}")
 
@@ -311,7 +311,7 @@ class ReEvo:
         Update after each iteration
         """
         population = self.population
-        objs = [individual["obj"] for individual in population]
+        objs = [individual["gap"] for individual in population]
         best_obj, best_sample_idx = min(objs), np.argmin(np.array(objs))
 
         # update best overall
@@ -321,9 +321,9 @@ class ReEvo:
             self.best_code_path_overall = population[best_sample_idx]["code_path"]
 
         # update elitist
-        if self.elitist is None or best_obj < self.elitist["obj"]:
+        if self.elitist is None or best_obj < self.elitist["gap"]:
             self.elitist = population[best_sample_idx]
-            logging.info(f"Iteration {self.iteration}: Elitist: {self.elitist['obj']}")
+            logging.info(f"Iteration {self.iteration}: Elitist: {self.elitist['gap']}")
 
         # Dump population as JSON
         pop_json_path = f"population_iter{self.iteration}.json"
@@ -340,7 +340,7 @@ class ReEvo:
         # Eliminate invalid individuals
         if self.problem_type == "black_box":
             population = [individual for individual in population if
-                          individual["exec_success"] and individual["obj"] < self.seed_ind["obj"]]
+                          individual["exec_success"] and individual["gap"] < self.seed_ind["gap"]]
         else:
             population = [individual for individual in population if individual["exec_success"]]
         if len(population) < 2:
@@ -350,7 +350,7 @@ class ReEvo:
             trial += 1
             parents = np.random.choice(population, size=2, replace=False)
             # If two parents have the same objective value, consider them as identical; otherwise, add them to the selected population
-            if parents[0]["obj"] != parents[1]["obj"]:
+            if parents[0]["gap"] != parents[1]["gap"]:
                 selected_population.extend(parents)
             if trial > 1000:
                 return None
@@ -360,13 +360,13 @@ class ReEvo:
         """
         Short-term reflection before crossovering two individuals.
         """
-        if ind1["obj"] == ind2["obj"]:
+        if ind1["gap"] == ind2["gap"]:
             print(ind1["code"], ind2["code"])
             raise ValueError("Two individuals to crossover have the same objective value!")
         # Determine which individual is better or worse
-        if ind1["obj"] < ind2["obj"]:
+        if ind1["gap"] < ind2["gap"]:
             better_ind, worse_ind = ind1, ind2
-        elif ind1["obj"] > ind2["obj"]:
+        elif ind1["gap"] > ind2["gap"]:
             better_ind, worse_ind = ind2, ind1
 
         worse_code = filter_code(worse_ind["code"])

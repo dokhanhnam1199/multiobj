@@ -24,7 +24,7 @@ init_pop_size: 30 # initial population size for GA
 mutation_rate: 0.5 # mutation rate for GA
 timeout: 50 # timeout for evaluation of a single heuristic
 warm_up: 0 
-stop_condition: token # Supported conditions: 'token', 'fe', 'gen'
+stop_condition: fe # Supported conditions: 'token', 'fe', 'gen'
 alpha: 0.99
 
 # Harmony search
