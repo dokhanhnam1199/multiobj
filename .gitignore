@@ -6,3 +6,8 @@ venv/
 .env
 test.py
 test.sh
+map_elites/
+reevo/
+hsevo/
+eoh/
+funsearch/

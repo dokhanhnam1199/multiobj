@@ -261,17 +261,17 @@ class ReEvo:
                         # Split the output into lines
                         lines = stdout_str.strip().split('\n')
 
-                        individual["gap"] = float(lines[-3]) if self.obj_type == "min" else -float(lines[-3])
+                        individual["gap"] = float(lines[-2]) if self.obj_type == "min" else -float(lines[-2])
 
                         # Extract runtime from the second-to-last line
-                        runtime_line = lines[-2]
+                        # runtime_line = lines[-2]
 
-                        parts = runtime_line.split()
+                        # parts = runtime_line.split()
 
-                        user_time = float(parts[0].replace("user", ""))
-                        system_time = float(parts[1].replace("system", ""))
+                        # user_time = float(parts[0].replace("user", ""))
+                        # system_time = float(parts[1].replace("system", ""))
 
-                        individual["runtime"] = user_time + system_time
+                        # individual["runtime"] = user_time + system_time
                         individual["exec_success"] = True
                     except:
                         population[response_id] = self.mark_invalid_individual(population[response_id],

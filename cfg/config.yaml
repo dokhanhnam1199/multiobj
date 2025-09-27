@@ -11,7 +11,7 @@ hydra:
 algorithm: hsevo
 qd_type: embedding # embedding or bd
 # LLM parameters
-model: 'nvidia_nim/google/gemma-3-27b-it'
+model: 'mistral/codestral-latest'
 embedding_model: 'nvidia_nim/nvidia/llama-3.2-nemoretriever-1b-vlm-embed-v1'
 temperature: 1 # temperature for chat completion
 
