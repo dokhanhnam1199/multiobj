@@ -1,0 +1,37 @@
+algorithm: hsevo
+qd_type: embedding
+model: mistral/codestral-latest
+embedding_model: nvidia_nim/nvidia/llama-3.2-nemoretriever-1b-vlm-embed-v1
+temperature: 1
+max_token: 250000
+max_fe: 100
+max_gen: 10
+pop_size: 10
+init_pop_size: 30
+mutation_rate: 0.5
+timeout: 50
+warm_up: 0
+stop_condition: fe
+alpha: 0.99
+hm_size: 5
+hmcr: 0.7
+par: 0.5
+bandwidth: 0.2
+max_iter: 5
+bd_list:
+- SLOC
+- cyclomatic_complexity
+- halstead
+bd_step:
+- 3
+- 1
+- 50
+problem:
+  problem_name: tsp_constructive
+  problem_type: constructive
+  obj_type: min
+  problem_size: 50
+  func_name: select_next_node
+  description: Solving Traveling Salesman Problem (TSP) with constructive heuristics.
+    TSP requires finding the shortest path that visits all given nodes and returns
+    to the starting node.

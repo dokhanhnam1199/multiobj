@@ -1,0 +1,8 @@
+[*] Running ...
+weibull_5k_train.pickle
+	 Average number of bins: 3364.2
+	 Lower bound on optimum: 2005.6
+	 Excess: 67.74%
+[*] Average:
+67.74032708416435
+       14.34 real        14.21 user         0.03 sys

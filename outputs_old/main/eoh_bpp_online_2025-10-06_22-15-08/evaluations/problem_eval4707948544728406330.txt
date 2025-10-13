@@ -1,0 +1,8 @@
+def priority_v2(item, bins_remain_cap):
+    priority = []
+    for i, cap in enumerate(bins_remain_cap):
+        if cap >= item:
+            priority.append(cap / (i + 1))  # Higher capacity and fewer items (lower index) get higher priority
+        else:
+            priority.append(0)  # Bin cannot fit the item
+    return priority

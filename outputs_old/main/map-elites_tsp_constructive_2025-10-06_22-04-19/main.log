@@ -1,0 +1,9 @@
+[2025-10-06 22:04:19,735][root][INFO] - Workspace: /Users/nhatnguyen/Documents/Training Lab cô Bình/LLM + EC/Code/multiobj/outputs/main/map-elites_tsp_constructive_2025-10-06_22-04-19
+[2025-10-06 22:04:19,735][root][INFO] - Project Root: /Users/nhatnguyen/Documents/Training Lab cô Bình/LLM + EC/Code/multiobj
+[2025-10-06 22:04:19,735][root][INFO] - Using LLM: mistral/codestral-latest
+[2025-10-06 22:04:19,735][root][INFO] - Using Algorithm: map-elites
+[2025-10-06 22:04:20,563][httpx][INFO] - HTTP Request: GET https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json "HTTP/1.1 200 OK"
+[2025-10-06 22:04:21,609][root][INFO] - Problem: tsp_constructive
+[2025-10-06 22:04:21,609][root][INFO] - Problem description: Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+[2025-10-06 22:04:21,609][root][INFO] - Function name: select_next_node
+[2025-10-06 22:04:21,609][root][INFO] - Stop condition: fe

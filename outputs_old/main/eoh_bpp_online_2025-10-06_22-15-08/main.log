@@ -1,0 +1,103 @@
+[2025-10-06 22:15:08,567][root][INFO] - Workspace: /Users/nhatnguyen/Documents/Training Lab cô Bình/LLM + EC/Code/multiobj/outputs/main/eoh_bpp_online_2025-10-06_22-15-08
+[2025-10-06 22:15:08,567][root][INFO] - Project Root: /Users/nhatnguyen/Documents/Training Lab cô Bình/LLM + EC/Code/multiobj
+[2025-10-06 22:15:08,567][root][INFO] - Using LLM: mistral/codestral-latest
+[2025-10-06 22:15:08,567][root][INFO] - Using Algorithm: eoh
+[2025-10-06 22:15:09,424][httpx][INFO] - HTTP Request: GET https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json "HTTP/1.1 200 OK"
+[2025-10-06 22:15:09,978][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 22:15:13,638][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 22:15:13,642][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 22:15:13,644][root][INFO] - LLM usage: prompt_tokens = 165, completion_tokens = 127
+[2025-10-06 22:15:13,645][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 22:15:14,990][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 22:15:14,991][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 22:15:14,991][root][INFO] - LLM usage: prompt_tokens = 330, completion_tokens = 212
+[2025-10-06 22:15:14,992][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 22:15:18,334][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 22:15:18,334][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 22:15:18,335][root][INFO] - LLM usage: prompt_tokens = 495, completion_tokens = 300
+[2025-10-06 22:15:18,335][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 22:15:19,469][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 22:15:19,469][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 22:15:19,470][root][INFO] - LLM usage: prompt_tokens = 660, completion_tokens = 395
+[2025-10-06 22:15:19,470][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 22:15:20,530][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 22:15:20,531][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 22:15:20,531][root][INFO] - LLM usage: prompt_tokens = 825, completion_tokens = 496
+[2025-10-06 22:15:20,532][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 22:15:22,348][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 22:15:22,349][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 22:15:22,349][root][INFO] - LLM usage: prompt_tokens = 990, completion_tokens = 659
+[2025-10-06 22:15:22,350][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 22:15:24,039][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 22:15:24,040][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 22:15:24,040][root][INFO] - LLM usage: prompt_tokens = 1155, completion_tokens = 802
+[2025-10-06 22:15:24,040][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 22:15:24,984][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 22:15:24,984][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 22:15:24,985][root][INFO] - LLM usage: prompt_tokens = 1320, completion_tokens = 900
+[2025-10-06 22:15:24,985][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 22:15:26,123][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 22:15:26,124][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 22:15:26,124][root][INFO] - LLM usage: prompt_tokens = 1485, completion_tokens = 1035
+[2025-10-06 22:15:26,124][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 22:15:31,276][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 22:15:31,530][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 22:15:31,530][root][INFO] - LLM usage: prompt_tokens = 1650, completion_tokens = 1140
+[2025-10-06 22:15:31,531][root][INFO] - Iteration 0: Running Code 4707948544728406330
+[2025-10-06 22:15:31,591][root][INFO] - Iteration -1: Code Run -1 successful!
+[2025-10-06 22:15:31,591][root][INFO] - Iteration 0: Running Code -7350939429524285325
+[2025-10-06 22:15:31,652][root][INFO] - Iteration -1: Code Run -1 successful!
+[2025-10-06 22:15:31,652][root][INFO] - Iteration 0: Running Code 1702061321038967095
+[2025-10-06 22:15:31,712][root][INFO] - Iteration -1: Code Run -1 successful!
+[2025-10-06 22:15:31,712][root][INFO] - Iteration 0: Running Code -7778644065958346623
+[2025-10-06 22:15:31,773][root][INFO] - Iteration -1: Code Run -1 successful!
+[2025-10-06 22:15:31,773][root][INFO] - Iteration 0: Running Code -2003244557439888388
+[2025-10-06 22:15:31,834][root][INFO] - Iteration -1: Code Run -1 successful!
+[2025-10-06 22:15:31,834][root][INFO] - Iteration 0: Running Code 1238847627163094457
+[2025-10-06 22:15:31,893][root][INFO] - Iteration -1: Code Run -1 successful!
+[2025-10-06 22:15:31,893][root][INFO] - Iteration 0: Running Code 2783874119378968121
+[2025-10-06 22:15:31,956][root][INFO] - Iteration -1: Code Run -1 successful!
+[2025-10-06 22:15:31,956][root][INFO] - Iteration 0: Running Code -2600885725753605067
+[2025-10-06 22:15:32,036][root][INFO] - Iteration -1: Code Run -1 successful!
+[2025-10-06 22:15:32,036][root][INFO] - Iteration 0: Running Code -4286972878472365147
+[2025-10-06 22:15:32,112][root][INFO] - Iteration -1: Code Run -1 successful!
+[2025-10-06 22:15:32,112][root][INFO] - Iteration 0: Running Code 6587766326802417979
+[2025-10-06 22:15:32,190][root][INFO] - Iteration -1: Code Run -1 successful!
+[2025-10-06 22:15:45,212][root][ERROR] - Error processing objective for response_id 0: could not convert string to float: '[*] Average:'
+[2025-10-06 22:15:45,212][root][INFO] - Iteration 0, response_id 0: Objective value: inf
+[2025-10-06 22:15:48,428][root][ERROR] - Error processing objective for response_id 1: could not convert string to float: '[*] Average:'
+[2025-10-06 22:15:48,428][root][INFO] - Iteration 0, response_id 1: Objective value: inf
+[2025-10-06 22:15:53,390][root][ERROR] - Error processing objective for response_id 2: could not convert string to float: '[*] Average:'
+[2025-10-06 22:15:53,390][root][INFO] - Iteration 0, response_id 2: Objective value: inf
+[2025-10-06 22:15:53,390][root][ERROR] - Error processing objective for response_id 3: could not convert string to float: '[*] Average:'
+[2025-10-06 22:15:53,390][root][INFO] - Iteration 0, response_id 3: Objective value: inf
+[2025-10-06 22:15:53,390][root][ERROR] - Error processing objective for response_id 4: could not convert string to float: '[*] Average:'
+[2025-10-06 22:15:53,390][root][INFO] - Iteration 0, response_id 4: Objective value: inf
+[2025-10-06 22:15:53,390][root][ERROR] - Traceback for response_id 5: Traceback (most recent call last):
+  File "/Users/nhatnguyen/Documents/Training Lab cô Bình/LLM + EC/Code/multiobj/problems/bpp_online/eval.py", line 112, in <module>
+    avg_num_bins = -evaluate(dataset)
+                    ^^^^^^^^^^^^^^^^^
+  File "/Users/nhatnguyen/Documents/Training Lab cô Bình/LLM + EC/Code/multiobj/problems/bpp_online/eval.py", line 55, in evaluate
+    _, bins_packed = online_binpack(items.astype(float), bins)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nhatnguyen/Documents/Training Lab cô Bình/LLM + EC/Code/multiobj/problems/bpp_online/eval.py", line 30, in online_binpack
+    best_bin = valid_bin_indices[np.argmax(priorities)]
+               ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+IndexError: index 9999 is out of bounds for axis 0 with size 5000
+        0.07 real         0.05 user         0.01 sys
+
+[2025-10-06 22:15:53,390][root][INFO] - Iteration 0, response_id 5: Objective value: inf
+[2025-10-06 22:15:54,398][root][ERROR] - Error processing objective for response_id 6: could not convert string to float: '[*] Average:'
+[2025-10-06 22:15:54,398][root][INFO] - Iteration 0, response_id 6: Objective value: inf
+[2025-10-06 22:15:54,398][root][ERROR] - Error processing objective for response_id 7: could not convert string to float: '[*] Average:'
+[2025-10-06 22:15:54,398][root][INFO] - Iteration 0, response_id 7: Objective value: inf

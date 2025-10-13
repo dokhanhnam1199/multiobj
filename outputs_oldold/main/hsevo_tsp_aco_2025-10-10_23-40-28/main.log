@@ -1,0 +1,20 @@
+[2025-10-10 23:40:28,693][root][INFO] - Workspace: /Users/nhatnguyen/Documents/Training Lab cô Bình/LLM + EC/Code/working/multiobj/outputs/main/hsevo_tsp_aco_2025-10-10_23-40-28
+[2025-10-10 23:40:28,694][root][INFO] - Project Root: /Users/nhatnguyen/Documents/Training Lab cô Bình/LLM + EC/Code/working/multiobj
+[2025-10-10 23:40:28,694][root][INFO] - Using LLM: mistral/codestral-latest
+[2025-10-10 23:40:28,694][root][INFO] - Using Algorithm: hsevo
+[2025-10-10 23:40:29,581][httpx][INFO] - HTTP Request: GET https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json "HTTP/1.1 200 OK"
+[2025-10-10 23:40:30,327][root][INFO] - Problem: tsp_aco
+[2025-10-10 23:40:30,327][root][INFO] - Problem description: Solving Traveling Salesman Problem (TSP) via stochastic solution sampling following "heuristics". TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+[2025-10-10 23:40:30,327][root][INFO] - Function name: heuristics
+[2025-10-10 23:40:30,327][root][INFO] - Evaluating seed function...
+[2025-10-10 23:40:30,327][root][INFO] - Seed function code: 
+import numpy as np
+import random
+import math
+import scipy
+import torch
+def heuristics_v2(distance_matrix: np.ndarray) -> np.ndarray:
+    return 1 / distance_matrix
+[2025-10-10 23:40:30,327][root][INFO] - Iteration 0: Running Code 0
+[2025-10-10 23:40:30,564][root][INFO] - Iteration 0: Code Run 0 successful!
+[2025-10-10 23:40:30,639][root][INFO] - Eval=1, TokenIn=0, TokenOut=0, MaxObj=inf

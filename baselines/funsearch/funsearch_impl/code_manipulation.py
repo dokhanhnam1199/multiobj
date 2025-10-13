@@ -166,7 +166,7 @@ class ProgramVisitor(ast.NodeVisitor):
 
             self._functions.append(Function(
                 name=node.name,
-                args=ast.unparse(node.args),  # RZ: ast.unparse() failed in Python3.8. Let us try Python3.9
+                args=ast.unparse(node.args),  # RZ: ast.unparse() failed in python.8. Let us try python.9
                 return_type=ast.unparse(node.returns) if node.returns else None,
                 docstring=docstring,
                 body='\n'.join(self._codelines[body_start_line:function_end_line]),

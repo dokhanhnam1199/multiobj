@@ -1,0 +1,8 @@
+def priority_v2(item, bins_remain_cap):
+    priority = []
+    for cap in bins_remain_cap:
+        if cap >= item:
+            priority.append(cap - item)
+        else:
+            priority.append(-1)  # Invalid bin
+    return priority

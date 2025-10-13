@@ -1,0 +1,176 @@
+[2025-10-06 23:44:24,455][root][INFO] - Workspace: /Users/nhatnguyen/Documents/Training Lab cô Bình/LLM + EC/Code/multiobj/outputs/main/reevo_bpp_online_2025-10-06_23-44-24
+[2025-10-06 23:44:24,456][root][INFO] - Project Root: /Users/nhatnguyen/Documents/Training Lab cô Bình/LLM + EC/Code/multiobj
+[2025-10-06 23:44:24,456][root][INFO] - Using LLM: mistral/codestral-latest
+[2025-10-06 23:44:24,456][root][INFO] - Using Algorithm: reevo
+[2025-10-06 23:44:25,480][httpx][INFO] - HTTP Request: GET https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json "HTTP/1.1 200 OK"
+[2025-10-06 23:44:26,252][root][INFO] - Problem: bpp_online
+[2025-10-06 23:44:26,252][root][INFO] - Problem description: Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+[2025-10-06 23:44:26,252][root][INFO] - Function name: priority
+[2025-10-06 23:44:26,252][root][INFO] - Evaluating seed function...
+[2025-10-06 23:44:26,252][root][INFO] - Seed function code: 
+import numpy as np
+import random
+import math
+import scipy
+import torch
+def priority_v2(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+[2025-10-06 23:44:26,252][root][INFO] - Iteration 0: Running Code 0
+[2025-10-06 23:44:26,836][root][INFO] - Iteration 0: Code Run 0 successful!
+[2025-10-06 23:44:27,506][root][INFO] - Eval=1, TokenIn=0, TokenOut=0, MaxObj=149.30195452732352
+[2025-10-06 23:44:27,506][root][INFO] - Iteration 0: Elitist: 149.30195452732352
+[2025-10-06 23:44:27,506][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are an expert in the domain of optimization heuristics. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+Write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+
+[2025-10-06 23:44:27,508][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:27,509][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:28,849][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:28,852][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:28,853][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:29,950][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:29,951][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:29,952][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:30,034][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:30,034][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:30,035][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:31,024][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:31,025][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:31,026][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:31,098][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:31,099][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:31,100][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:32,298][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:32,303][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:32,304][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:33,602][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:33,603][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:33,603][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:33,885][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:33,886][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:33,887][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:34,777][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:34,777][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:34,778][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:34,995][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:34,996][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:34,996][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:36,039][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:36,039][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:36,040][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:36,348][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:36,348][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:36,349][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:37,266][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:37,266][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:37,267][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:37,352][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:37,353][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:37,353][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:38,290][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:38,290][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:38,291][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:38,351][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:38,351][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:38,352][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:39,372][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:39,373][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:39,373][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:39,598][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:39,598][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:39,599][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:40,693][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:40,693][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:40,694][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:41,978][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:41,978][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:41,979][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:43,103][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:43,103][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:43,104][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:43,515][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:43,516][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:43,516][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:44,024][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:44,025][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:44,025][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:44,876][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:44,876][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:44,877][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:45,689][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:45,689][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:45,690][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:45,938][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:45,939][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:45,939][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:46,865][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:46,866][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:46,866][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-06 23:44:46,925][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-06 23:44:46,926][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-06 23:44:46,926][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral

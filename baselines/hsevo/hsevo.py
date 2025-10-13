@@ -288,20 +288,26 @@ class HSEvo:
                 if traceback_msg == '':  # If execution has no error
                     try:
                         # Split the output into lines
+                        print("debug 0")
                         lines = stdout_str.strip().split('\n')
+                        print("debug 1")
 
-                        individual["gap"] = float(lines[-3]) if self.obj_type == "min" else -float(lines[-3])
+                        individual["gap"] = float(lines[-2]) if self.obj_type == "min" else -float(lines[-2])
+                        print("debug 2")
 
                         # Extract runtime from the second-to-last line
-                        runtime_line = lines[-2]
+                        runtime_line = lines[-1]
 
                         parts = runtime_line.split()
+                        print("debug 3")
 
-                        user_time = float(parts[0].replace("user", ""))
-                        system_time = float(parts[1].replace("system", ""))
+                        # user_time = float(parts[0].replace("user", ""))
+                        # system_time = float(parts[1].replace("system", ""))
 
-                        individual["runtime"] = user_time + system_time
+                        individual["runtime"] = parts[2] + parts[4]
+                        print("debug 4")
                         individual["exec_success"] = True
+                        print("debug 5")
                     except:
                         population[response_id] = self.mark_invalid_individual(population[response_id],
                                                                                "Invalid std out / objective value!")
@@ -327,7 +333,7 @@ class HSEvo:
         # Execute the python file with flags
         with open(individual["stdout_filepath"], 'w') as f:
             eval_file_path = f'{self.root_dir}/problems/{self.problem}/eval.py' if self.problem_type != "black_box" else f'{self.root_dir}/problems/{self.problem}/eval_black_box.py'
-            process = subprocess.Popen(['time','python3', '-u', eval_file_path, f'{self.problem_size}', self.root_dir, "train"],
+            process = subprocess.Popen(['time','python', '-u', eval_file_path, f'{self.problem_size}', self.root_dir, "train"],
                                        stdout=f, stderr=f)
 
         block_until_running(individual["stdout_filepath"], log_status=True, iter_num=self.iteration,

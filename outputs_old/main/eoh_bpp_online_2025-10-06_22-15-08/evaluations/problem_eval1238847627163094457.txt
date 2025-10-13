@@ -1,0 +1,10 @@
+def priority_v2(item, bins_remain_cap):
+    priority = []
+    for i, cap in enumerate(bins_remain_cap):
+        if cap >= item:
+            priority.append((cap - item, i))  # Prefer bins closest to item size, then by index
+        else:
+            priority.append((float('inf'), i))  # Invalid bins get lowest priority
+    # Sort by (difference, index) and return negative index to prioritize higher indices first
+    priority.sort(key=lambda x: (x[0], x[1]))
+    return priority

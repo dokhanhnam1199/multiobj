@@ -1,0 +1,894 @@
+[2025-10-10 23:42:33,896][root][INFO] - Workspace: /Users/nhatnguyen/Documents/Training Lab cô Bình/LLM + EC/Code/working/multiobj/outputs/main/hsevo_tsp_constructive_2025-10-10_23-42-33
+[2025-10-10 23:42:33,896][root][INFO] - Project Root: /Users/nhatnguyen/Documents/Training Lab cô Bình/LLM + EC/Code/working/multiobj
+[2025-10-10 23:42:33,896][root][INFO] - Using LLM: mistral/codestral-latest
+[2025-10-10 23:42:33,896][root][INFO] - Using Algorithm: hsevo
+[2025-10-10 23:42:34,846][httpx][INFO] - HTTP Request: GET https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json "HTTP/1.1 200 OK"
+[2025-10-10 23:42:35,608][root][INFO] - Problem: tsp_constructive
+[2025-10-10 23:42:35,608][root][INFO] - Problem description: Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+[2025-10-10 23:42:35,608][root][INFO] - Function name: select_next_node
+[2025-10-10 23:42:35,609][root][INFO] - Evaluating seed function...
+[2025-10-10 23:42:35,609][root][INFO] - Seed function code: 
+import numpy as np
+import random
+import math
+import scipy
+import torch
+def select_next_node_v2(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+[2025-10-10 23:42:35,609][root][INFO] - Iteration 0: Running Code 0
+[2025-10-10 23:42:36,467][root][INFO] - Iteration 0: Code Run 0 successful!
+[2025-10-10 23:42:37,572][root][INFO] - Eval=1, TokenIn=0, TokenOut=0, MaxObj=6.273092009780198
+[2025-10-10 23:42:37,572][root][INFO] - Iteration 0: Elitist: 6.273092009780198
+[2025-10-10 23:42:37,573][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are an expert in the domain of optimization heuristics. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are an expert in the domain of optimization heuristics. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,573][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Albert Einstein, relativity theory developer. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Albert Einstein, relativity theory developer. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,573][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Isaac Newton, the father of physics. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Isaac Newton, the father of physics. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,573][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Marie Curie, pioneer in radioactivity. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Marie Curie, pioneer in radioactivity. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,573][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Nikola Tesla, master of electricity. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Nikola Tesla, master of electricity. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,574][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Galileo Galilei, champion of heliocentrism. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Galileo Galilei, champion of heliocentrism. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,574][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Stephen Hawking, black hole theorist. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Stephen Hawking, black hole theorist. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,574][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Richard Feynman, quantum mechanics genius. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Richard Feynman, quantum mechanics genius. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,574][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Rosalind Franklin, DNA structure revealer. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Rosalind Franklin, DNA structure revealer. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,574][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Ada Lovelace, computer programming pioneer. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Ada Lovelace, computer programming pioneer. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,574][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are an expert in the domain of optimization heuristics. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are an expert in the domain of optimization heuristics. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,575][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Albert Einstein, relativity theory developer. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Albert Einstein, relativity theory developer. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,575][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Isaac Newton, the father of physics. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Isaac Newton, the father of physics. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,575][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Marie Curie, pioneer in radioactivity. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Marie Curie, pioneer in radioactivity. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,575][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Nikola Tesla, master of electricity. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Nikola Tesla, master of electricity. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,575][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Galileo Galilei, champion of heliocentrism. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Galileo Galilei, champion of heliocentrism. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,575][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Stephen Hawking, black hole theorist. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Stephen Hawking, black hole theorist. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,575][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Richard Feynman, quantum mechanics genius. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Richard Feynman, quantum mechanics genius. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,575][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Rosalind Franklin, DNA structure revealer. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Rosalind Franklin, DNA structure revealer. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,576][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Ada Lovelace, computer programming pioneer. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Ada Lovelace, computer programming pioneer. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,576][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are an expert in the domain of optimization heuristics. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are an expert in the domain of optimization heuristics. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,576][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Albert Einstein, relativity theory developer. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Albert Einstein, relativity theory developer. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,576][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Isaac Newton, the father of physics. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Isaac Newton, the father of physics. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,576][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Marie Curie, pioneer in radioactivity. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Marie Curie, pioneer in radioactivity. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,577][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Nikola Tesla, master of electricity. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Nikola Tesla, master of electricity. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,577][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Galileo Galilei, champion of heliocentrism. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Galileo Galilei, champion of heliocentrism. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,577][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Stephen Hawking, black hole theorist. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Stephen Hawking, black hole theorist. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,578][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Richard Feynman, quantum mechanics genius. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Richard Feynman, quantum mechanics genius. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,578][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Rosalind Franklin, DNA structure revealer. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Rosalind Franklin, DNA structure revealer. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,578][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Ada Lovelace, computer programming pioneer. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Ada Lovelace, computer programming pioneer. Your task is to write a select_next_node function for Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+The select_next_node function takes as input the current node, the destination_node, a set of unvisited nodes, and a distance matrix, and returns the next node to visit.
+
+
+def select_next_node_v1(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+
+
+Refer to the format of a trivial design above. Be very creative and give `select_next_node_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:42:37,582][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:42:37,582][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:42:39,051][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:42:39,057][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:42:39,059][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:42:39,449][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:42:39,450][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:42:39,451][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:42:41,472][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:42:41,475][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:42:41,477][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:42:41,890][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:42:41,893][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:42:41,895][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:42:42,947][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:42:42,948][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:42:42,949][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:42:43,436][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:42:43,437][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:42:43,438][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:42:44,319][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:42:44,320][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:42:44,321][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:42:45,052][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:42:45,054][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:42:45,055][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:42:46,202][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:42:46,203][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:42:46,204][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:42:46,629][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:42:46,630][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:42:46,631][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:42:48,045][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:42:48,046][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:42:48,047][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:42:48,294][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:42:48,295][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:42:48,296][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral

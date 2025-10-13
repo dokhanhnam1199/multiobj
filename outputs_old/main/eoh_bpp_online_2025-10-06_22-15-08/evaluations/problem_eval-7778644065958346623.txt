@@ -1,0 +1,9 @@
+def priority_v2(item, bins_remain_cap):
+    priorities = []
+    for capacity in bins_remain_cap:
+        if capacity >= item:
+            priority = abs(capacity - item)
+        else:
+            priority = float('inf')
+        priorities.append(priority)
+    return priority

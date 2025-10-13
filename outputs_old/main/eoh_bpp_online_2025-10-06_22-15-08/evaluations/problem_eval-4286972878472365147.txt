@@ -1,0 +1,8 @@
+def priority_v2(item, bins_remain_cap):
+    priority = []
+    for cap in bins_remain_cap:
+        if cap >= item and cap != 1.0:  # Ensure the item fits and the bin is not full
+            priority.append((cap - item) / 1.0)  # Normalized by total capacity (1.0)
+        else:
+            priority.append(-1.0)  # Invalid bin
+    return priority

@@ -1,0 +1,31 @@
+[2025-10-06 22:08:45,311][root][INFO] - Workspace: /Users/nhatnguyen/Documents/Training Lab cô Bình/LLM + EC/Code/multiobj/outputs/main/reevo_tsp_constructive_2025-10-06_22-08-45
+[2025-10-06 22:08:45,311][root][INFO] - Project Root: /Users/nhatnguyen/Documents/Training Lab cô Bình/LLM + EC/Code/multiobj
+[2025-10-06 22:08:45,311][root][INFO] - Using LLM: mistral/codestral-latest
+[2025-10-06 22:08:45,311][root][INFO] - Using Algorithm: reevo
+[2025-10-06 22:08:46,184][httpx][INFO] - HTTP Request: GET https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json "HTTP/1.1 200 OK"
+[2025-10-06 22:08:46,722][root][INFO] - Problem: tsp_constructive
+[2025-10-06 22:08:46,722][root][INFO] - Problem description: Solving Traveling Salesman Problem (TSP) with constructive heuristics. TSP requires finding the shortest path that visits all given nodes and returns to the starting node.
+[2025-10-06 22:08:46,722][root][INFO] - Function name: select_next_node
+[2025-10-06 22:08:46,723][root][INFO] - Evaluating seed function...
+[2025-10-06 22:08:46,723][root][INFO] - Seed function code: 
+import numpy as np
+import random
+import math
+import scipy
+import torch
+def select_next_node_v2(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
+    """Select the next node to visit from the unvisited nodes."""
+    threshold = 0.7
+    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1
+    scores = {}
+    for node in unvisited_nodes:
+        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]
+        average_distance_to_unvisited = np.mean(all_distances)
+        std_dev_distance_to_unvisited = np.std(all_distances)
+        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]
+        scores[node] = score
+    next_node = min(scores, key=scores.get)
+    return next_node
+[2025-10-06 22:08:46,723][root][INFO] - Iteration 0: Running Code 0
+[2025-10-06 22:08:47,274][root][INFO] - Iteration 0: Code Run 0 successful!
+[2025-10-06 22:08:48,377][root][INFO] - Eval=1, TokenIn=0, TokenOut=0, MaxObj=inf

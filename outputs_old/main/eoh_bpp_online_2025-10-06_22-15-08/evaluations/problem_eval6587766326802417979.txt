@@ -1,0 +1,8 @@
+def priority_v2(item, bins_remain_cap):
+    priority = []
+    for i, cap in enumerate(bins_remain_cap):
+        if cap >= item:
+            priority.append(cap * (i + 1))  # Weighted by bin index to favor earlier bins
+        else:
+            priority.append(0)
+    return priority

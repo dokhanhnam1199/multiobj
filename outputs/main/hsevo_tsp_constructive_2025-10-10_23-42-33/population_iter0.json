@@ -1,0 +1,11 @@
+[
+  {
+    "stdout_filepath": "problem_iter0_stdout0.txt",
+    "code_path": "problem_iter0_code0.py",
+    "code": "import numpy as np\nimport random\nimport math\nimport scipy\nimport torch\ndef select_next_node_v2(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:\n    \"\"\"Select the next node to visit from the unvisited nodes.\"\"\"\n    threshold = 0.7\n    c1, c2, c3, c4 = 0.4, 0.3, 0.2, 0.1\n    scores = {}\n    for node in unvisited_nodes:\n        all_distances = [distance_matrix[node][i] for i in unvisited_nodes if i != node]\n        average_distance_to_unvisited = np.mean(all_distances)\n        std_dev_distance_to_unvisited = np.std(all_distances)\n        score = c1 * distance_matrix[current_node][node] - c2 * average_distance_to_unvisited + c3 * std_dev_distance_to_unvisited - c4 * distance_matrix[destination_node][node]\n        scores[node] = score\n    next_node = min(scores, key=scores.get)\n    return next_node",
+    "response_id": 0,
+    "gap": 6.273092009780198,
+    "runtime": "1.480.17",
+    "exec_success": true
+  }
+]

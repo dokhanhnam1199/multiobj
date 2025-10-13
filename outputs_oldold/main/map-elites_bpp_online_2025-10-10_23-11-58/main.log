@@ -1,0 +1,30 @@
+[2025-10-10 23:11:58,326][root][INFO] - Workspace: /Users/nhatnguyen/Documents/Training Lab cô Bình/LLM + EC/Code/working/multiobj/outputs/main/map-elites_bpp_online_2025-10-10_23-11-58
+[2025-10-10 23:11:58,327][root][INFO] - Project Root: /Users/nhatnguyen/Documents/Training Lab cô Bình/LLM + EC/Code/working/multiobj
+[2025-10-10 23:11:58,327][root][INFO] - Using LLM: mistral/codestral-latest
+[2025-10-10 23:11:58,327][root][INFO] - Using Algorithm: map-elites
+[2025-10-10 23:11:59,363][httpx][INFO] - HTTP Request: GET https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json "HTTP/1.1 200 OK"
+[2025-10-10 23:12:00,900][root][INFO] - Problem: bpp_online
+[2025-10-10 23:12:00,900][root][INFO] - Problem description: Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+[2025-10-10 23:12:00,900][root][INFO] - Function name: priority
+[2025-10-10 23:12:00,900][root][INFO] - Stop condition: fe
+[2025-10-10 23:12:00,900][root][INFO] - Evaluating seed function...
+[2025-10-10 23:12:00,900][root][INFO] - Seed function code: 
+import numpy as np
+import random
+import math
+import scipy
+import torch
+def priority_v2(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    return np.zeros_like(bins_remain_cap)
+[2025-10-10 23:12:00,900][root][INFO] - Iteration 0: Running Code 0
+[2025-10-10 23:12:01,601][root][INFO] - Iteration 0: Code Run 0 successful!
+[2025-10-10 23:12:02,015][root][INFO] - Iteration 0, response_id 0: Objective value: inf, run_time: inf

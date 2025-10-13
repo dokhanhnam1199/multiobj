@@ -1,0 +1,9 @@
+[*] Running ...
+object address  : 0x10468e6e0
+object refcount : 2
+object type     : 0x1043c4588
+object type name: KeyboardInterrupt
+object repr     : KeyboardInterrupt()
+lost sys.stderr
+time: command terminated abnormally
+       47.91 real        47.77 user         0.06 sys

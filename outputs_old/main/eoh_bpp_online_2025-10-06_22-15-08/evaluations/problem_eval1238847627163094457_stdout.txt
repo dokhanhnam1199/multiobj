@@ -1,0 +1,13 @@
+[*] Running ...
+Traceback (most recent call last):
+  File "/Users/nhatnguyen/Documents/Training Lab cô Bình/LLM + EC/Code/multiobj/problems/bpp_online/eval.py", line 112, in <module>
+    avg_num_bins = -evaluate(dataset)
+                    ^^^^^^^^^^^^^^^^^
+  File "/Users/nhatnguyen/Documents/Training Lab cô Bình/LLM + EC/Code/multiobj/problems/bpp_online/eval.py", line 55, in evaluate
+    _, bins_packed = online_binpack(items.astype(float), bins)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nhatnguyen/Documents/Training Lab cô Bình/LLM + EC/Code/multiobj/problems/bpp_online/eval.py", line 30, in online_binpack
+    best_bin = valid_bin_indices[np.argmax(priorities)]
+               ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+IndexError: index 9999 is out of bounds for axis 0 with size 5000
+        0.07 real         0.05 user         0.01 sys

@@ -140,7 +140,7 @@ class Problem:
 
                     with open(stdout_filepath, 'w') as f:
                         process = subprocess.Popen(
-                            ['time','python3', '-u', file_path, f'{self.problem_size}', self.root_dir, "train"], stdout=f,
+                            ['time','python', '-u', file_path, f'{self.problem_size}', self.root_dir, "train"], stdout=f,
                             stderr=f)
 
                     block_until_running(stdout_filepath, log_status=True)

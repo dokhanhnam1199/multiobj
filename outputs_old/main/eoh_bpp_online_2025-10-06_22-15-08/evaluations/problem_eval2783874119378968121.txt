@@ -1,0 +1,11 @@
+def priority_v2(item, bins_remain_cap):
+    priority = []
+    for cap in bins_remain_cap:
+        if cap >= item:
+            if cap == item:
+                priority.append(float('inf'))  # Highest priority for exact fit
+            else:
+                priority.append(1 / (cap - item))  # Higher priority for smaller remaining capacity after packing
+        else:
+            priority.append(0)  # No priority if item cannot fit
+    return priority

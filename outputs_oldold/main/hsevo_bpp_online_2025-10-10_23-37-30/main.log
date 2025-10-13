@@ -1,0 +1,881 @@
+[2025-10-10 23:37:30,838][root][INFO] - Workspace: /Users/nhatnguyen/Documents/Training Lab cô Bình/LLM + EC/Code/working/multiobj/outputs/main/hsevo_bpp_online_2025-10-10_23-37-30
+[2025-10-10 23:37:30,838][root][INFO] - Project Root: /Users/nhatnguyen/Documents/Training Lab cô Bình/LLM + EC/Code/working/multiobj
+[2025-10-10 23:37:30,838][root][INFO] - Using LLM: mistral/codestral-latest
+[2025-10-10 23:37:30,838][root][INFO] - Using Algorithm: hsevo
+[2025-10-10 23:37:31,796][httpx][INFO] - HTTP Request: GET https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json "HTTP/1.1 200 OK"
+[2025-10-10 23:37:32,537][root][INFO] - Problem: bpp_online
+[2025-10-10 23:37:32,537][root][INFO] - Problem description: Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+[2025-10-10 23:37:32,537][root][INFO] - Function name: priority
+[2025-10-10 23:37:32,538][root][INFO] - Evaluating seed function...
+[2025-10-10 23:37:32,538][root][INFO] - Seed function code: 
+import numpy as np
+import random
+import math
+import scipy
+import torch
+def priority_v2(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+[2025-10-10 23:37:32,538][root][INFO] - Iteration 0: Running Code 0
+[2025-10-10 23:37:33,235][root][INFO] - Iteration 0: Code Run 0 successful!
+[2025-10-10 23:37:33,901][root][INFO] - Eval=1, TokenIn=0, TokenOut=0, MaxObj=149.30195452732352
+[2025-10-10 23:37:33,901][root][INFO] - Iteration 0: Elitist: 149.30195452732352
+[2025-10-10 23:37:33,901][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are an expert in the domain of optimization heuristics. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are an expert in the domain of optimization heuristics. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,902][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Albert Einstein, relativity theory developer. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Albert Einstein, relativity theory developer. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,902][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Isaac Newton, the father of physics. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Isaac Newton, the father of physics. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,902][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Marie Curie, pioneer in radioactivity. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Marie Curie, pioneer in radioactivity. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,902][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Nikola Tesla, master of electricity. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Nikola Tesla, master of electricity. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,902][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Galileo Galilei, champion of heliocentrism. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Galileo Galilei, champion of heliocentrism. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,902][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Stephen Hawking, black hole theorist. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Stephen Hawking, black hole theorist. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,903][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Richard Feynman, quantum mechanics genius. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Richard Feynman, quantum mechanics genius. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,903][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Rosalind Franklin, DNA structure revealer. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Rosalind Franklin, DNA structure revealer. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,903][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Ada Lovelace, computer programming pioneer. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Ada Lovelace, computer programming pioneer. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,903][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are an expert in the domain of optimization heuristics. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are an expert in the domain of optimization heuristics. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,903][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Albert Einstein, relativity theory developer. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Albert Einstein, relativity theory developer. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,903][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Isaac Newton, the father of physics. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Isaac Newton, the father of physics. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,904][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Marie Curie, pioneer in radioactivity. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Marie Curie, pioneer in radioactivity. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,904][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Nikola Tesla, master of electricity. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Nikola Tesla, master of electricity. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,904][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Galileo Galilei, champion of heliocentrism. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Galileo Galilei, champion of heliocentrism. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,904][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Stephen Hawking, black hole theorist. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Stephen Hawking, black hole theorist. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,904][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Richard Feynman, quantum mechanics genius. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Richard Feynman, quantum mechanics genius. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,904][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Rosalind Franklin, DNA structure revealer. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Rosalind Franklin, DNA structure revealer. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,905][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Ada Lovelace, computer programming pioneer. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Ada Lovelace, computer programming pioneer. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,905][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are an expert in the domain of optimization heuristics. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are an expert in the domain of optimization heuristics. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,905][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Albert Einstein, relativity theory developer. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Albert Einstein, relativity theory developer. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,905][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Isaac Newton, the father of physics. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Isaac Newton, the father of physics. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,905][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Marie Curie, pioneer in radioactivity. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Marie Curie, pioneer in radioactivity. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,905][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Nikola Tesla, master of electricity. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Nikola Tesla, master of electricity. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,905][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Galileo Galilei, champion of heliocentrism. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Galileo Galilei, champion of heliocentrism. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,906][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Stephen Hawking, black hole theorist. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Stephen Hawking, black hole theorist. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,906][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Richard Feynman, quantum mechanics genius. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Richard Feynman, quantum mechanics genius. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,906][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Rosalind Franklin, DNA structure revealer. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Rosalind Franklin, DNA structure revealer. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,907][root][INFO] - Initial Population Prompt: 
+System Prompt: 
+You are Ada Lovelace, computer programming pioneer. Your task is to design heuristics that can effectively solve optimization problems.
+Your response outputs Python code and nothing else. Format your code as a Python code string: "```python ... ```".
+
+User Prompt: 
+You are Ada Lovelace, computer programming pioneer. Your task is to write a priority function for Solving online Bin Packing Problem (BPP). BPP requires packing a set of items of various sizes into the smallest number of fixed-sized bins. Online BPP requires packing an item as soon as it is received.
+The priority function takes as input an item and an array of bins_remain_cap (containing the remaining capacity of each bin) and returns a priority score for each bin. The bin with the highest priority score will be selected for the item.
+
+def priority_v1(item: float, bins_remain_cap: np.ndarray) -> np.ndarray:
+    """Returns priority with which we want to add item to each bin.
+
+    Args:
+        item: Size of item to be added to the bin.
+        bins_remain_cap: Array of capacities for each bin.
+
+    Return:
+        Array of same size as bins_remain_cap with priority score of each bin.
+    """
+    ratios = item / bins_remain_cap
+    log_ratios = np.log(ratios)
+    priorities = -log_ratios
+    return priorities
+
+Refer to the format of a trivial design above. Be very creative and give `priority_v2`. Output code only and enclose your code with Python code block: ```python ... ```.
+
+[2025-10-10 23:37:33,910][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:37:33,910][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:37:35,169][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:37:35,175][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:37:35,177][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:37:35,682][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:37:35,684][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:37:35,686][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:37:36,494][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:37:36,496][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:37:36,497][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:37:36,689][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:37:36,691][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:37:36,695][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:37:37,483][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:37:37,485][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:37:37,486][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:37:38,068][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:37:38,071][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:37:38,071][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:37:39,120][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:37:39,121][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:37:39,122][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:37:39,399][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:37:39,401][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:37:39,401][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:37:40,504][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:37:40,505][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:37:40,505][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:37:40,600][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:37:40,601][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:37:40,601][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:37:41,962][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:37:41,965][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:37:41,966][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:37:41,969][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:37:41,972][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:37:41,974][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:37:42,977][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:37:42,979][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:37:42,979][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:37:43,929][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:37:43,930][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:37:43,931][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:37:44,319][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:37:44,320][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:37:44,320][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
+[2025-10-10 23:37:44,896][httpx][INFO] - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-10-10 23:37:44,897][LiteLLM][INFO] - Wrapper: Completed Call, calling success_handler
+[2025-10-10 23:37:44,897][LiteLLM][INFO] - 
+LiteLLM completion() model= codestral-latest; provider = mistral
